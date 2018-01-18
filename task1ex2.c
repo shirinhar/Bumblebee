@@ -9,7 +9,7 @@
 
 int main(int argc, const char* argv[])
 {
-    simulator_startNewSmokeTrail();
+    //simulator_startNewSmokeTrail();
     drive_goto(1000, -1000);
     
     
