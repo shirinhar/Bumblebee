@@ -9,12 +9,11 @@
 
 int main(int argc, const char* argv[])
 {
-    simulator_startNewSmokeTrail();
     char str[300];
 
     printf("Enter word: ");
     scanf("%s", str);
-    
+
     for(int i=0; i<strlen(str); i++)
     {
         char letter = str[i];
@@ -22,24 +21,29 @@ int main(int argc, const char* argv[])
         {
             case 'I':
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-50,-50);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
                 drive_goto(5,5);
                 break;
 
             case 'L':
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-50,-50);
                 drive_goto(26,-26);
                 drive_goto(25,25);
                 drive_goto(-25,-25);
                 drive_goto(25,25);
+                simulator_stopSmokeTrail();
                 break;
-            
+
             case 'E':
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(26,-26);
                 drive_goto(26,26);
@@ -55,10 +59,12 @@ int main(int argc, const char* argv[])
                 drive_goto(26,26);
                 drive_goto(-25,-25);
                 drive_goto(25,25);
+                simulator_stopSmokeTrail();
                 break;
 
             case 'F':
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(26,-26);
                 drive_goto(30,30);
@@ -72,6 +78,7 @@ int main(int argc, const char* argv[])
                 drive_goto(-25,-25);
                 drive_goto(26,-26);
                 drive_goto(26,26);
+                simulator_stopSmokeTrail();
                 break;
 
             case 'H':
@@ -86,6 +93,7 @@ int main(int argc, const char* argv[])
                 drive_goto(26,-26);*/
 
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-25,-25);
                 drive_goto(26,-26);
@@ -94,6 +102,7 @@ int main(int argc, const char* argv[])
                 drive_goto(-26,26);
                 drive_goto(25,25);
                 drive_goto(-50,-50);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
 
                 break;
@@ -105,6 +114,7 @@ int main(int argc, const char* argv[])
                 drive_goto(13,-13);*/
                 //first angle for the top
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-30,-30);
                 drive_goto(30,0);
@@ -112,11 +122,13 @@ int main(int argc, const char* argv[])
                 drive_goto(-30,-30);
                 drive_goto(26,-26);
                 drive_goto(39,39);
+                simulator_stopSmokeTrail();
                 drive_goto(-14,14);
                 break;
 
             case 'A':
                 drive_goto(-17,17);
+                simulator_startNewSmokeTrail();
                 drive_goto(58,58);
                 drive_goto(-29,-29);
                 drive_goto(17,-17);
@@ -126,8 +138,9 @@ int main(int argc, const char* argv[])
                 drive_goto(-16,-16);
                 drive_goto(52,52);
                 drive_goto(-7,-7);
+                simulator_stopSmokeTrail();
                 drive_goto(-17,17);
-                
+
                 /*drive_goto(-17,17);
                 drive_goto(58,58);
                 drive_goto(-29,-29);
@@ -139,7 +152,7 @@ int main(int argc, const char* argv[])
                 drive_goto(58,58);
                 drive_goto(-17,17);*/
                 break;
-            
+
             default:
                 printf("letter %c not found",letter);
                 break;
@@ -148,6 +161,6 @@ int main(int argc, const char* argv[])
 
         drive_goto(15,15);
     }
-    
+
     return 0;
 }
