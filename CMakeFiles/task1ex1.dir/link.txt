@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/task1ex1.dir/task1ex1.c.o  -o task1ex1 -rdynamic ../../src/libclient.a -lpthread 
