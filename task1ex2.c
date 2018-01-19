@@ -10,7 +10,11 @@
 int main(int argc, const char* argv[])
 {
     //simulator_startNewSmokeTrail();
-    drive_goto(1000, -1000);
+    int i =1 ;
+    while(i == 1){
+        drive_speed(128, -128);
+    }
+   
     
     
     return 0;
