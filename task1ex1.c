@@ -15,9 +15,11 @@ int main(int argc, const char* argv[])
     {
         simulator_startNewSmokeTrail();
         drive_goto(77,77);
-        simulator_topSmokeTrail();
-        drive_goto(26,-26);
-        drive_goto(-9,-9);
+        simulator_stopSmokeTrail();
+        drive_goto(-9,-9);        
+        drive_goto(-26,26);
+        drive_goto(9,9);
+        
     }
 
     return 0;
