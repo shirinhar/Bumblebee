@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+applications/Task1/CMakeFiles/test.dir/rule:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f CMakeFiles/Makefile2 applications/Task1/CMakeFiles/test.dir/rule
+.PHONY : applications/Task1/CMakeFiles/test.dir/rule
+
+# Convenience name for target.
+test: applications/Task1/CMakeFiles/test.dir/rule
+
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/test.dir/build.make applications/Task1/CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+# Convenience name for target.
 applications/Task1/CMakeFiles/task1ex1.dir/rule:
 	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f CMakeFiles/Makefile2 applications/Task1/CMakeFiles/task1ex1.dir/rule
 .PHONY : applications/Task1/CMakeFiles/task1ex1.dir/rule
@@ -154,6 +169,21 @@ task1ex3: applications/Task1/CMakeFiles/task1ex3.dir/rule
 task1ex3/fast:
 	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex3.dir/build.make applications/Task1/CMakeFiles/task1ex3.dir/build
 .PHONY : task1ex3/fast
+
+# Convenience name for target.
+applications/Task1/CMakeFiles/task1ex32.dir/rule:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f CMakeFiles/Makefile2 applications/Task1/CMakeFiles/task1ex32.dir/rule
+.PHONY : applications/Task1/CMakeFiles/task1ex32.dir/rule
+
+# Convenience name for target.
+task1ex32: applications/Task1/CMakeFiles/task1ex32.dir/rule
+
+.PHONY : task1ex32
+
+# fast build rule for target.
+task1ex32/fast:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex32.dir/build.make applications/Task1/CMakeFiles/task1ex32.dir/build
+.PHONY : task1ex32/fast
 
 task1ex1.o: task1ex1.c.o
 
@@ -236,6 +266,60 @@ task1ex3.c.s:
 	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex3.dir/build.make applications/Task1/CMakeFiles/task1ex3.dir/task1ex3.c.s
 .PHONY : task1ex3.c.s
 
+task1ex32.o: task1ex32.c.o
+
+.PHONY : task1ex32.o
+
+# target to build an object file
+task1ex32.c.o:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex32.dir/build.make applications/Task1/CMakeFiles/task1ex32.dir/task1ex32.c.o
+.PHONY : task1ex32.c.o
+
+task1ex32.i: task1ex32.c.i
+
+.PHONY : task1ex32.i
+
+# target to preprocess a source file
+task1ex32.c.i:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex32.dir/build.make applications/Task1/CMakeFiles/task1ex32.dir/task1ex32.c.i
+.PHONY : task1ex32.c.i
+
+task1ex32.s: task1ex32.c.s
+
+.PHONY : task1ex32.s
+
+# target to generate assembly for a file
+task1ex32.c.s:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/task1ex32.dir/build.make applications/Task1/CMakeFiles/task1ex32.dir/task1ex32.c.s
+.PHONY : task1ex32.c.s
+
+test.o: test.c.o
+
+.PHONY : test.o
+
+# target to build an object file
+test.c.o:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/test.dir/build.make applications/Task1/CMakeFiles/test.dir/test.c.o
+.PHONY : test.c.o
+
+test.i: test.c.i
+
+.PHONY : test.i
+
+# target to preprocess a source file
+test.c.i:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/test.dir/build.make applications/Task1/CMakeFiles/test.dir/test.c.i
+.PHONY : test.c.i
+
+test.s: test.c.s
+
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.c.s:
+	cd /mnt/c/Helen/Uni/COMP105/Simulator_Release_180107/Client && $(MAKE) -f applications/Task1/CMakeFiles/test.dir/build.make applications/Task1/CMakeFiles/test.dir/test.c.s
+.PHONY : test.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -243,10 +327,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... task1ex1"
 	@echo "... task1ex2"
 	@echo "... task1ex3"
-	@echo "... rebuild_cache"
+	@echo "... task1ex32"
 	@echo "... task1ex1.o"
 	@echo "... task1ex1.i"
 	@echo "... task1ex1.s"
@@ -256,6 +342,12 @@ help:
 	@echo "... task1ex3.o"
 	@echo "... task1ex3.i"
 	@echo "... task1ex3.s"
+	@echo "... task1ex32.o"
+	@echo "... task1ex32.i"
+	@echo "... task1ex32.s"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 .PHONY : help
 
 
