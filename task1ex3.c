@@ -13,7 +13,8 @@ int main(int argc, const char* argv[])
 
     printf("Enter word: ");
     scanf("%s", str);
-
+    drive_goto(-150,-150);
+    
     for(int i=0; i<strlen(str); i++)
     {
         char letter = str[i];
