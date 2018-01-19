@@ -46,16 +46,22 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(26,-26);
-                drive_goto(26,26);
-                drive_goto(-26,-26);
+                drive_goto(35,35);
+                drive_goto(-35,-35);
                 drive_goto(-26,26);
                 drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(26,26);
                 drive_goto(-26,-26);
+                simulator_stopSmokeTrail();
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(26,26);
                 drive_goto(-25,-25);
                 drive_goto(25,25);
@@ -67,16 +73,24 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(26,-26);
-                drive_goto(30,30);
-                drive_goto(-30,-30);
+                drive_goto(35,35);
+                drive_goto(-35,-35);
+                simulator_stopSmokeTrail();
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(26,26);
                 drive_goto(-26,-26);
+                simulator_stopSmokeTrail();
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(26,26);
                 simulator_stopSmokeTrail();
                 break;
@@ -96,10 +110,14 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
                 drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(32,32);
                 drive_goto(-10,-10);
+                simulator_stopSmokeTrail();
                 drive_goto(-26,26);
+                simulator_startNewSmokeTrail();
                 drive_goto(25,25);
                 drive_goto(-50,-50);
                 simulator_stopSmokeTrail();
@@ -117,7 +135,10 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
                 drive_goto(-30,-30);
+                simulator_stopSmokeTrail();
                 drive_goto(30,0);
+                simulator_startNewSmokeTrail();
+                //**** whats going on here??
                 drive_goto(25,25);
                 drive_goto(-30,-30);
                 drive_goto(26,-26);
@@ -131,12 +152,16 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(58,58);
                 drive_goto(-29,-29);
+                simulator_stopSmokeTrail();
                 drive_goto(17,-17);
+                simulator_startNewSmokeTrail();
                 drive_goto(28,28);
                 drive_goto(-8,-8);
+                simulator_stopSmokeTrail();
                 drive_goto(17,-17);
-                drive_goto(-16,-16);
-                drive_goto(52,52);
+                simulator_startNewSmokeTrail();
+                drive_goto(-15,-15);
+                drive_goto(58,58);
                 drive_goto(-7,-7);
                 simulator_stopSmokeTrail();
                 drive_goto(-17,17);
@@ -159,7 +184,7 @@ int main(int argc, const char* argv[])
 
         }
 
-        drive_goto(15,15);
+        drive_goto(12,12);
     }
 
     return 0;
