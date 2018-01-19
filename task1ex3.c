@@ -13,8 +13,9 @@ int main(int argc, const char* argv[])
 
     printf("Enter word: ");
     scanf("%s", str);
-    drive_goto(-150,-150);
-    
+
+    drive_goto(-170,-170);
+
     for(int i=0; i<strlen(str); i++)
     {
         char letter = str[i];
@@ -24,8 +25,8 @@ int main(int argc, const char* argv[])
                 drive_goto(-26,26);
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
-                drive_goto(-50,-50);
                 simulator_stopSmokeTrail();
+                drive_goto(-50,-50);
                 drive_goto(26,-26);
                 drive_goto(5,5);
                 break;
@@ -34,50 +35,65 @@ int main(int argc, const char* argv[])
                 drive_goto(-26,26);
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
+                simulator_stopSmokeTrail();
                 drive_goto(-50,-50);
-                drive_goto(26,-26);
-                drive_goto(25,25);
-                drive_goto(-25,-25);
-                drive_goto(25,25);
+                drive_goto(26,-25);
+                simulator_startNewSmokeTrail();
+                drive_goto(30,30);
                 simulator_stopSmokeTrail();
                 break;
 
             case 'E':
-                drive_goto(-26,26);
+                 drive_goto(-26,26);
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
+                simulator_stopSmokeTrail();
+                drive_goto(-9,-9);
                 drive_goto(26,-26);
+                drive_goto(9,9);
+                simulator_startNewSmokeTrail();
+                drive_goto(35,35);
+                simulator_stopSmokeTrail();
+                drive_goto(-35,-35);
+                drive_goto(-9,-9);
+                drive_goto(-26,26);
+                drive_goto(9,9);
+                simulator_startNewSmokeTrail();
+                drive_goto(-25,-25);
+                simulator_stopSmokeTrail();
+                drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
                 drive_goto(35,35);
                 drive_goto(-35,-35);
-                drive_goto(-26,26);
-                drive_goto(-25,-25);
-                simulator_stopSmokeTrail();
-                drive_goto(26,-26);
-                simulator_startNewSmokeTrail();
-                drive_goto(26,26);
-                drive_goto(-26,-26);
                 simulator_stopSmokeTrail();
                 drive_goto(-26,26);
                 simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
                 simulator_stopSmokeTrail();
+                drive_goto(-9,-9);
                 drive_goto(26,-26);
+                drive_goto(9,9);
                 simulator_startNewSmokeTrail();
-                drive_goto(26,26);
-                drive_goto(-25,-25);
-                drive_goto(25,25);
+                drive_goto(35,35);
                 simulator_stopSmokeTrail();
+                drive_goto(10,10);
                 break;
 
             case 'F':
                 drive_goto(-26,26);
                 simulator_startNewSmokeTrail();
                 drive_goto(50,50);
-                drive_goto(26,-26);
-                drive_goto(35,35);
-                drive_goto(-35,-35);
                 simulator_stopSmokeTrail();
+                drive_goto(-9,-9);
+                drive_goto(26,-26);
+                drive_goto(9,9);
+                simulator_startNewSmokeTrail();
+                drive_goto(35,35);
+                simulator_stopSmokeTrail();
+                drive_goto(-35,-35);
+                drive_goto(-9,-9);
                 drive_goto(-26,26);
+                drive_goto(9,9);
                 simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
                 simulator_stopSmokeTrail();
@@ -90,10 +106,11 @@ int main(int argc, const char* argv[])
                 simulator_startNewSmokeTrail();
                 drive_goto(-25,-25);
                 simulator_stopSmokeTrail();
+                drive_goto(-9,-9);
                 drive_goto(26,-26);
-                simulator_startNewSmokeTrail();
-                drive_goto(26,26);
-                simulator_stopSmokeTrail();
+                //simulator_startNewSmokeTrail();
+                drive_goto(30,30);
+                //simulator_stopSmokeTrail();
                 break;
 
             case 'H':
@@ -142,10 +159,12 @@ int main(int argc, const char* argv[])
                 //**** whats going on here??
                 drive_goto(25,25);
                 drive_goto(-30,-30);
-                drive_goto(26,-26);
-                drive_goto(39,39);
                 simulator_stopSmokeTrail();
-                drive_goto(-14,14);
+                drive_goto(26,-26);
+                simulator_startNewSmokeTrail();
+                drive_goto(53,53);
+                simulator_stopSmokeTrail();
+                drive_goto(-15,15);
                 break;
 
             case 'A':
