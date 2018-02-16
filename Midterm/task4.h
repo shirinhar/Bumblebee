@@ -13,7 +13,7 @@ void turn(double left_ir,double right_ir,double diff_ping){
 	if (left_ir > right_ir){
 		x = -1;
 	}
-	int tick = 4 * x;
+	int tick = 5 * x;
  	drive_speed(tick,-tick);
 }
 
