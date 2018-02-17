@@ -4,17 +4,44 @@
 #include "abdrive.h"
 #include "simpletext.h"
 #include "simpletools.h"
+#include "simulator.h"
 #include <stdlib.h>
 #include "ping.h"
+#include "simulator.h"
+int tick = 5;
 
-// change the robots angle 
-void turn(double left_ir,double right_ir,double diff_ping){
-	int x=1;
-	if (left_ir > right_ir){
-		x = -1;
-	}
-	int tick = 5 * x;
+double x, y, z, distance;
+double left_ticks[100],right_ticks[100];
+int distance_forward;
+
+void position(){
+
+simulator_getPose(&x, &y, &z);
+distance = sqrt(pow(x,2) + pow(y,2));
+
+
+printf("Distance: %f\n", distance/32.5);
+
+}
+// void dead_reckoning(){
+// 	while (1) {
+//     drive_getTicks(int *left, int *right);
+// 		left = left_ticks[]
+// 		right = right_ticks[]
+// 		pause(100);
+// }
+}
+
+// change the robots angle
+void turn_left(double left_ir,double right_ir,double diff_ping){
+ 	drive_speed(-tick,tick);
+}
+void turn_right(double left_ir,double right_ir,double diff_ping){
  	drive_speed(tick,-tick);
+}
+void go_back(){
+	drive_ramp(0,0);
+	drive_goto(51,-51);
 }
 
 // get the ir reading and return it as a double
