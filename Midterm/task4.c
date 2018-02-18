@@ -24,7 +24,7 @@ int main()
    // leave while loop when 15cm away from wall
    while(ping_cm(8) > 15 ){
 
-     drive_ramp(25,25);
+     drive_ramp(30,30);
 
      int tick=0;
      double diff_ir,first_ping,diff_ping;
@@ -45,13 +45,16 @@ int main()
        turn_left();
      }
 
+     // do we need this to break the loop? 
+     // the while condition do that for us?
      if (ping_cm(8) <= 15){
        break;
      }
    }
+
    simulator_stopSmokeTrail();
    go_back();
-   pause(10);
+   pause(20);
    simulator_startNewSmokeTrail();
    back();
    simulator_stopSmokeTrail();
