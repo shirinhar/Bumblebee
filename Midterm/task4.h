@@ -32,12 +32,13 @@ void dead_reckoning(){
 }
 
 void back(){
-	drive_ramp(25,25);
+	drive_ramp(30,30);
 	//drive_goto(1,1);
 	while (i > -1){		
 		left_tick = left_ticks[i-1] - left_ticks [i-2];
 		right_tick = right_ticks[i-1] - right_ticks [i-2];
 		i = i - 1;
+		drive_speed(35,35);
 		drive_goto(right_tick,left_tick);
 		//drive_speed(20,20);
 	}
@@ -54,9 +55,9 @@ void turn_right(){
 
 void go_back(){
 	drive_ramp(0,0);
-	//drive_goto(-18,-18);
+	drive_goto(-18,-18);
 	drive_goto(51,-51);
-	drive_goto(5,5);
+	drive_goto(-18,-18);
 }
 
 // get the ir reading and return it as a double
@@ -91,10 +92,6 @@ void position_from_start(){
 	simulator_getPose(&endX, &endY, &endZ);
 
 	printf("start: %lf, %lf, %lf\nend: %lf, %lf, %lf\n", startX, startY, startZ,endX, endY, endZ);
-	distance = sqrt(pow(endZ-startZ,2) + pow(endY-startY,2) + pow(endX-startX,2));
+	distance = sqrt(pow((endZ-startZ),2) + pow((endY-startY),2) + pow((endX-startX),2));
 	printf("Distance: %f\n", distance/32.5);
 }
-
-
-
-
