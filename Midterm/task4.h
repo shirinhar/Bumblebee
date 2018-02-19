@@ -38,7 +38,7 @@ void back(){
 		left_tick = left_ticks[i-1] - left_ticks [i-2];
 		right_tick = right_ticks[i-1] - right_ticks [i-2];
 		i = i - 1;
-		drive_speed(35,35);
+		drive_speed(50,50);
 		drive_goto(right_tick,left_tick);
 		//drive_speed(20,20);
 	}
