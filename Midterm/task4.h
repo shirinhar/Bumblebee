@@ -8,56 +8,48 @@
 #include <stdlib.h>
 #include "ping.h"
 #include "simulator.h"
-int tick = 3,i=0;
-double startX, startY, startZ;
+int tick = 3,i=1,closeness=12;
+double startX, startY, startAng;
 
 double x, y, z, distance;
 int left_ticks[250],right_ticks[250];
 int distance_forward;
 int left_tick, right_tick;
 
-void position(){
-
-	simulator_getPose(&x, &y, &z);
-	distance = sqrt(pow(x,2) + pow(y,2));
-
-	printf("Distance: %f\n", distance/32.5);
-
-}
-
-void dead_reckoning(){
-	drive_getTicks(&left_ticks[i], &right_ticks[i]);
-	printf("l: %d, r: %d i: %d\n", left_ticks[i],right_ticks[i],i);
-	i++;
-}
-
-void back(){
-	drive_ramp(30,30);
-	//drive_goto(1,1);
-	while (i > -1){		
-		left_tick = left_ticks[i-1] - left_ticks [i-2];
-		right_tick = right_ticks[i-1] - right_ticks [i-2];
-		i = i - 1;
-		//drive_speed(50,50);
-		drive_goto(right_tick,left_tick);
-		//drive_speed(20,20);
-	}
-}
 
 // change the robots angle
 void turn_left(){
  	drive_speed(-tick,tick);
+ 	left_ticks[i]=tick;	
+ 	right_ticks[i]=-tick;
 }
 
 void turn_right(){
  	drive_speed(tick,-tick);
+ 	left_ticks[i]=-tick;	
+ 	right_ticks[i]=tick;
 }
 
-void go_back(){
-	drive_ramp(0,0);
+void back(){
+	//drive_speed(30,30)
+	//drive_goto(1,1);
+	while (i > -1){	
+		i = i - 1;
+		drive_ramp(30,30);	
+		int right_ir=left_ticks[i];
+    	int left_ir=right_ticks[i];
+    	printf("l: %d, r: %d\n", left_ir,right_ir);
+    	pause(23);
+		drive_speed(right_ir,left_ir);
+	}
+}
+
+void turn(){
+	drive_speed(0,0);
 	drive_goto(-18,-18);
-	drive_goto(51,-51);
+	drive_goto(52,-53);
 	drive_goto(-18,-18);
+	pause(15);
 }
 
 // get the ir reading and return it as a double
@@ -83,17 +75,48 @@ double find_right_ir(){
 	return right_ir;
 }
 
+void run(){
+
+	left_ticks[0]=30;
+	right_ticks[0]=30;
+
+	double left_ir = find_left_ir();
+    double right_ir = find_right_ir();
+
+    //left_ticks[i]=(int)left_ir;
+    //right_ticks[i]=(int)right_ir;
+    printf("l: %f, r: %f\n", left_ir,right_ir);
+
+	if (left_ir < closeness){
+       turn_right();
+
+    }
+
+    else if (right_ir < closeness){
+       turn_left();
+     }
+
+     else{
+     	drive_speed(10,10);
+     	left_ticks[i]=10;	
+ 		right_ticks[i]=10;
+     }
+     i++;
+
+}
+
+
 void get_start_position(){
-	simulator_getPose(&startX, &startY, &startZ);	
+	simulator_getPose(&startX, &startY, &startAng);	
 }
 
 void position_from_start(){
-	double endX, endY, endZ;
-	simulator_getPose(&endX, &endY, &endZ);
+	double endX, endY, endAng;
+	simulator_getPose(&endX, &endY, &endAng);
 
-	printf("start: %lf, %lf, %lf\nend: %lf, %lf, %lf\n", startX, startY, startZ,endX, endY, endZ);
-	distance = sqrt(pow((endY-startY),2) + pow((endX-startX),2));
+	printf("start: %lf, %lf, %lf\nend: %lf, %lf, %lf\n", startX, startY, startAng,endX, endY, endAng);
+	distance = sqrt(pow((endX-startX),2) + pow((endY-startY),2));
+	double angle = endAng - startAng;
+	print("Angle: %f\n", angle*(180/3.14));
 	printf("Distance: %f\n", distance/32.5);
-	double angle = endZ - startZ;  
-	printf("Angle: %f\n", angle*(180/3.14));
 }
