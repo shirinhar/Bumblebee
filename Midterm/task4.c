@@ -7,19 +7,19 @@
 #include "ping.h"
 #include "abdrive.h"
 #include "simulator.h"
-#include "test4.h"
-
+#include "task4.h"
 
 
 int main()
 {
-
+  
    double left_ir;
    double right_ir ;
    double second_ping ;
    double closeness = 12;
    get_start_position();
    simulator_startNewSmokeTrail();
+   drive_speed(30,30);
 
    // leave while loop when 15cm away from wall
    while(ping_cm(8) > 15 ){
@@ -31,29 +31,14 @@ int main()
      first_ping = second_ping;
 
      second_ping = ping_cm(8);
-     left_ir = find_left_ir();
-     right_ir = find_right_ir();
-     dead_reckoning();
-     diff_ir = (left_ir - right_ir);
+     
+     //dead_reckoning();
 
-
-     if (left_ir < closeness){
-       turn_right();
-     }
-
-     if (right_ir < closeness){
-       turn_left();
-     }
-
-     // do we need this to break the loop? 
-     // the while condition do that for us?
-     if (ping_cm(8) <= 15){
-       break;
-     }
+     run();
    }
 
    simulator_stopSmokeTrail();
-   go_back();
+   turn();
    pause(20);
    simulator_startNewSmokeTrail();
    back();
