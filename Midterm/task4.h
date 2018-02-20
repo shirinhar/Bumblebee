@@ -97,9 +97,9 @@ void run(){
      }
 
      else{
-     	drive_speed(10,10);
-     	left_ticks[i]=10;	
- 		right_ticks[i]=10;
+     	drive_speed(12,12);
+     	left_ticks[i]=12;	
+ 	right_ticks[i]=12;
      }
      i++;
 
