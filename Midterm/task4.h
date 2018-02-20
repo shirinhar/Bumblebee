@@ -92,6 +92,8 @@ void position_from_start(){
 	simulator_getPose(&endX, &endY, &endZ);
 
 	printf("start: %lf, %lf, %lf\nend: %lf, %lf, %lf\n", startX, startY, startZ,endX, endY, endZ);
-	distance = sqrt(pow((endZ-startZ),2) + pow((endY-startY),2) + pow((endX-startX),2));
+	distance = sqrt(pow((endY-startY),2) + pow((endX-startX),2));
 	printf("Distance: %f\n", distance/32.5);
+	double angle = endZ - startZ;  
+	printf("Angle: %f\n", angle*(180/3.14));
 }
