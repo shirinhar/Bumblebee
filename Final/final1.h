@@ -15,6 +15,23 @@ int visitedX[50],visitedY[50];
 int visited_index =0;
 int bool = 0;
 int posX=0, posY=1;
+// 1 is y 0 is x
+int what_am_i_on = 1;
+
+void change_direction(){
+    if (posX>2){
+        posX = -1;
+    }
+    if (posX <-2){
+        posX = 1;
+    }
+    if (posY>2){
+        posY = -1;
+    }
+    if (posY <-2){
+        posY = 1;
+    } 
+}
 
 void turn_right(){
     drive_goto(-9,-9);        
@@ -22,6 +39,13 @@ void turn_right(){
     drive_goto(9,9);
     posX++;
     posY++;
+    change_direction();
+    if (what_am_i_on == 1){
+        what_am_i_on = 0;
+    }
+    else{
+        what_am_i_on = 1;
+    }
 }
 
 void turn_left(){
@@ -30,6 +54,13 @@ void turn_left(){
     drive_goto(9,9);
     posX--;
     posY--;
+    change_direction();
+    if (what_am_i_on == 1){
+        what_am_i_on = 0;
+    }
+    else{
+        what_am_i_on = 1;
+    }
 }
 
 void save_coordinates(){
@@ -38,29 +69,25 @@ void save_coordinates(){
     visited_index++;
 }
 
-void change_direction(){
-    if (posX>1){
-        posX = 0;
-    }
-    if (posX <-1){
-        posX = 0;
-    }
-    if (posY>1){
-        posY = 0;
-    }
-    if (posY <-1){
-        posY = 0;
-    } 
-}
-
 void go_forth_x(){
     drive_goto(3,3);
-    x = x + posX;
+    if (posX > 0){
+        x++;
+    }
+    if (posX < 0){
+        x--;
+    }
 }
 
 void go_forth_y(){
     drive_goto(3,3);
     y = y + posY;
+    if (posY > 0){
+        y++;
+    }
+    if (posY < 0){
+        y--;
+    }
 }
 
 // get the ir reading and return it as a double
@@ -94,5 +121,33 @@ void run(){
 
     printf("%lf, %lf",left_ir,right_ir);
 
-    //here is where I loose my shit
+    if (ping < 15){
+        drive_speed(0,0);
+        if(left_ir > 12 && right_ir > 12){
+            save_coordinates();
+            // ???? 
+        }
+        else if (left_ir > 12){
+            turn_left();
+        }
+        else if (right_ir > 12){
+            turn_right();
+        }
+        else{
+            //go back to the last position
+        }
+    }else{
+
+        if(left_ir > 12 && right_ir > 12 ){
+            save_coordinates();
+            // ????
+        }
+    }
+    //going straight
+    if (what_am_i_on == 1){
+        go_forth_y();
+    }
+    else{
+        go_forth_x();
+    }
 }
