@@ -18,6 +18,15 @@ int posX=0, posY=1;
 // 1 is y 0 is x
 int what_am_i_on = 1;
 
+bool is_visited(int valX,int valY){
+    int i;
+    for (i=0; i < visited_index-1; i++) {
+        if (visitedY[i] == valY && visitedX[i] == valX)
+            return true;
+    }
+    return false;
+}
+
 void change_direction(){
     if (posX>2){
         posX = -1;
@@ -123,7 +132,11 @@ void run(){
 
     if (ping < 15){
         drive_speed(0,0);
+
         if(left_ir > 12 && right_ir > 12){
+            if(is_visited(x,y)){
+                // need to go another root if visited idk really
+            }
             save_coordinates();
             // ???? 
         }
