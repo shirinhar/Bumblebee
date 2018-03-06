@@ -8,26 +8,37 @@
 #include <stdlib.h>
 #include "ping.h"
 #include "simulator.h"
+#include "stack.h"
 
 
 int x=0, y=0;
-int visitedX[50],visitedY[50]; 
-int visited_index =0;
+int visitedX[50],visitedY[50];
+int visitedX_2[50],visitedY_2[50]; 
+int distance_from = 19;
+int visited_index =0, visited_index_2=0;
 int bool = 0;
 int posX=0, posY=1;
 // 1 is y 0 is x
-int what_am_i_on = 1;
+int what_am_i_on = 1,ticks = 120;
 
-bool is_visited(int valX,int valY){
-    int i;
-    for (i=0; i < visited_index-1; i++) {
+int is_visited_1(int valX,int valY){
+    for (int i=0; i < visited_index; i++) {
         if (visitedY[i] == valY && visitedX[i] == valX)
-            return true;
+            return 1;
     }
-    return false;
+    return 0;
+}
+
+int is_visited_2(int valX,int valY){
+    for (int i=0; i < visited_index; i++) {
+        if (visitedY_2[i] == valY && visitedX_2[i] == valX)
+            return 1;
+    }
+    return 0;
 }
 
 void change_direction(){
+    // check calculations
     if (posX>2){
         posX = -1;
     }
@@ -44,7 +55,7 @@ void change_direction(){
 
 void turn_right(){
     drive_goto(-9,-9);        
-    drive_goto(-26,26);
+    drive_goto(-25,26);
     drive_goto(9,9);
     posX++;
     posY++;
@@ -55,11 +66,14 @@ void turn_right(){
     else{
         what_am_i_on = 1;
     }
+    push(-9,-9);
+    push(-26,26);
+    push(9,9);
 }
 
 void turn_left(){
     drive_goto(-9,-9);        
-    drive_goto(26,-26);
+    drive_goto(25,-26);
     drive_goto(9,9);
     posX--;
     posY--;
@@ -70,6 +84,9 @@ void turn_left(){
     else{
         what_am_i_on = 1;
     }
+    push(-9,-9);
+    push(26,-26);
+    push(9,9);
 }
 
 void save_coordinates(){
@@ -78,25 +95,32 @@ void save_coordinates(){
     visited_index++;
 }
 
+void save_coordinates_again(){
+    visitedX_2[visited_index_2] = x;
+    visitedY_2[visited_index_2] = y;
+    visited_index_2++;
+}
+
 void go_forth_x(){
-    drive_goto(3,3);
+    drive_goto(ticks,ticks);
     if (posX > 0){
         x++;
     }
     if (posX < 0){
         x--;
     }
+    push(ticks,ticks);
 }
 
 void go_forth_y(){
-    drive_goto(3,3);
-    y = y + posY;
+    drive_goto(ticks,ticks);
     if (posY > 0){
         y++;
     }
     if (posY < 0){
         y--;
     }
+    push(ticks,ticks);
 }
 
 // get the ir reading and return it as a double
@@ -122,45 +146,98 @@ double find_right_ir(){
     return right_ir;
 }
 
+void go_back_bitch(){
+    printf("kill me");
+    drive_goto(51,-52);
+    int pop_l = pop_left();
+    int pop_r = pop_right();
+    while(pop_l != -100){
+        drive_goto(pop_r,pop_l);
+        pop_l = pop_left();
+        pop_r = pop_right();
+    }
+}
+
+void go_fucking_bitch(){
+    if (what_am_i_on == 1){
+        go_forth_y();
+    }
+    else{
+        go_forth_x();
+    }
+}
+
+
 void run(){
 
     int ping = ping_cm(8);
     double left_ir = find_left_ir();
     double right_ir = find_right_ir();
 
-    printf("%lf, %lf",left_ir,right_ir);
+    //printf("%f, %f",left_ir,right_ir);
 
-    if (ping < 15){
+    if (ping < 25 ){
         drive_speed(0,0);
 
-        if(left_ir > 12 && right_ir > 12){
-            if(is_visited(x,y)){
-                // need to go another root if visited idk really
+        if(left_ir > distance_from && right_ir > distance_from){
+            if(is_visited_2(x,y)==1){
+                go_back_bitch();
             }
-            save_coordinates();
-            // ???? 
+            else if(is_visited_1(x,y)==1) {
+                save_coordinates_again();
+                if (left_ir > distance_from && right_ir <= distance_from){
+                    turn_right();
+                    go_fucking_bitch();
+                }
+                else{
+                    turn_left();
+                    go_fucking_bitch();
+                }
+            }
+            else{
+                save_coordinates();
+                push(-100,-100);
+                turn_right();
+                go_fucking_bitch()
+            }
         }
-        else if (left_ir > 12){
-            turn_left();
-        }
-        else if (right_ir > 12){
+        else if (left_ir > distance_from && right_ir <= distance_from){
             turn_right();
+            go_fucking_bitch();
         }
+        else if (right_ir > distance_from && left_ir <= distance_from){
+            turn_left();
+            go_fucking_bitch();
+        }
+        //dead end
         else{
-            //go back to the last position
+            go_back_bitch();
         }
-    }else{
-
-        if(left_ir > 12 && right_ir > 12 ){
+    }
+    else if(left_ir > distance_from || right_ir > distance_from ){
+        if(is_visited_2(x,y)==1){
+            go_back_bitch();
+        }
+        else if(is_visited_1(x,y)==1){
+            save_coordinates_again();
+            if (left_ir > distance_from && right_ir <= distance_from){
+                turn_right();
+                go_fucking_bitch();
+            }
+            else{
+                turn_left();
+                go_fucking_bitch();
+            }
+            // choose other route
+        }else{
             save_coordinates();
-            // ????
+            push(-100,-100);
         }
+       
+        
     }
     //going straight
-    if (what_am_i_on == 1){
-        go_forth_y();
-    }
     else{
-        go_forth_x();
+        go_fucking_bitch();
     }
 }
