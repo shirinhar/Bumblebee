@@ -12,8 +12,8 @@
 
 
 int x=0, y=0;
-int visitedX[50],visitedY[50];
-int visitedX_2[50],visitedY_2[50]; 
+int visitedX[100],visitedY[100];
+int visitedX_2[100],visitedY_2[100]; 
 int distance_from = 19;
 int visited_index =0, visited_index_2=0;
 int bool = 0;
@@ -55,7 +55,7 @@ void change_direction(){
 
 void turn_right(){
     drive_goto(-9,-9);        
-    drive_goto(-25,26);
+    drive_goto(-26,25);
     drive_goto(9,9);
     posX++;
     posY++;
@@ -67,7 +67,7 @@ void turn_right(){
         what_am_i_on = 1;
     }
     push(-9,-9);
-    push(-26,26);
+    push(-26,25);
     push(9,9);
 }
 
@@ -85,7 +85,7 @@ void turn_left(){
         what_am_i_on = 1;
     }
     push(-9,-9);
-    push(26,-26);
+    push(25,-26);
     push(9,9);
 }
 
@@ -103,11 +103,12 @@ void save_coordinates_again(){
 
 void go_forth_x(){
     drive_goto(ticks,ticks);
+    printf("%d\n", posX);
     if (posX > 0){
-        x++;
+        x--;
     }
     if (posX < 0){
-        x--;
+        x++;
     }
     push(ticks,ticks);
 }
@@ -147,7 +148,6 @@ double find_right_ir(){
 }
 
 void go_back_bitch(){
-    printf("kill me");
     drive_goto(51,-52);
     int pop_l = pop_left();
     int pop_r = pop_right();
@@ -156,6 +156,9 @@ void go_back_bitch(){
         pop_l = pop_left();
         pop_r = pop_right();
     }
+    drive_goto(51,-52);
+    x = visitedX[visited_index-1];
+    y = visitedY[visited_index-1];
 }
 
 void go_fucking_bitch(){
@@ -167,14 +170,19 @@ void go_fucking_bitch(){
     }
 }
 
+void printer(){
+    printf("shoot me\n");
+    int help = x;
+    int hi = y;
+    printf("co:%d, %d ",help,hi);
+
+}
 
 void run(){
-
+    printer();
     int ping = ping_cm(8);
     double left_ir = find_left_ir();
     double right_ir = find_right_ir();
-
-    //printf("%f, %f",left_ir,right_ir);
 
     if (ping < 25 ){
         drive_speed(0,0);
@@ -198,7 +206,7 @@ void run(){
                 save_coordinates();
                 push(-100,-100);
                 turn_right();
-                go_fucking_bitch()
+                go_fucking_bitch();
             }
         }
         else if (left_ir > distance_from && right_ir <= distance_from){
@@ -232,6 +240,7 @@ void run(){
         }else{
             save_coordinates();
             push(-100,-100);
+            go_fucking_bitch();
         }
        
         
