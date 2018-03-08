@@ -23,12 +23,6 @@ int what_am_i_on = 1,ticks = 120;
 int back_it_up;
 
 
-
-/*    int visitedX;
-    int visitedY;
-    int i_am_on;
-}*/
-
 int is_visited_1(int valX,int valY){
     for (int i=0; i < visited_index; i++) {
         if (visitedY[i] == valY && visitedX[i] == valX)
@@ -259,7 +253,6 @@ void run(){
             // choose other route
         }
         else if(is_visited_1(x,y)==1){
-            printf("carsda\n");
             save_coordinates_again();
             go_back_bitch();
         }
