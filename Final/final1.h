@@ -102,6 +102,7 @@ void save_coordinates(){
     posXs[visited_index] = posX;
     posYs[visited_index] = posY;
     i_am_on[visited_index] = what_am_i_on;
+    push_single(visited_index);
     visited_index++;
 }
 
@@ -166,11 +167,12 @@ void go_back_bitch(){
         pop_r = pop_right();
     }
     drive_goto(51,-52);
-    x = visitedX[visited_index-1];
-    y = visitedY[visited_index-1];
-    posY = posYs[visited_index-1];
-    posX = posXs[visited_index-1];
-    what_am_i_on = i_am_on[visited_index-1];
+    int pop_me = pop_single();
+    x = visitedX[pop_me];
+    y = visitedY[pop_me];
+    posY = posYs[pop_me];
+    posX = posXs[pop_me];
+    what_am_i_on = i_am_on[pop_me];
     back_it_up = 1;
 }
 
@@ -187,7 +189,7 @@ void printer(){
     printf("shoot me\n");
     int help = x;
     int hi = y;
-    printf("co:%d, %d pos: %d, %d ",help,hi,posX,posY);
+    printf("co:%d, %d pos: %d, %d",help,hi,posX,posY);
 
 }
 
