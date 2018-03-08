@@ -196,57 +196,57 @@ void run(){
                 if (left_ir > distance_from && right_ir <= distance_from){
                     turn_right();
                     go_fucking_bitch();
+                    }
+                    else{
+                        turn_left();
+                        go_fucking_bitch();
+                    }
+                }
+                else{
+                    save_coordinates();
+                    push(-100,-100);
+                    turn_right();
+                    go_fucking_bitch();
+                }
+            }
+            else if (left_ir > distance_from && right_ir <= distance_from){
+                turn_right();
+                go_fucking_bitch();
+            }
+            else if (right_ir > distance_from && left_ir <= distance_from){
+                turn_left();
+                go_fucking_bitch();
+            }
+            //dead end
+            else{
+                go_back_bitch();
+            }
+        }
+        else if(left_ir > distance_from || right_ir > distance_from ){
+            if(is_visited_2(x,y)==1){
+                go_back_bitch();
+            }
+            else if(is_visited_1(x,y)==1){
+                save_coordinates_again();
+                if (left_ir > distance_from && right_ir <= distance_from){
+                    turn_right();
+                    go_fucking_bitch();
                 }
                 else{
                     turn_left();
                     go_fucking_bitch();
                 }
-            }
-            else{
+                // choose other route
+            }else{
                 save_coordinates();
                 push(-100,-100);
-                turn_right();
                 go_fucking_bitch();
             }
+            
         }
-        else if (left_ir > distance_from && right_ir <= distance_from){
-            turn_right();
-            go_fucking_bitch();
-        }
-        else if (right_ir > distance_from && left_ir <= distance_from){
-            turn_left();
-            go_fucking_bitch();
-        }
-        //dead end
-        else{
-            go_back_bitch();
-        }
-    }
-    else if(left_ir > distance_from || right_ir > distance_from ){
-        if(is_visited_2(x,y)==1){
-            go_back_bitch();
-        }
-        else if(is_visited_1(x,y)==1){
-            save_coordinates_again();
-            if (left_ir > distance_from && right_ir <= distance_from){
-                turn_right();
-                go_fucking_bitch();
-            }
-            else{
-                turn_left();
-                go_fucking_bitch();
-            }
-            // choose other route
-        }else{
-            save_coordinates();
-            push(-100,-100);
-            go_fucking_bitch();
-        }
-       
-        
-    }
-    //going straight
+        //going straight
     else{
         go_fucking_bitch();
     }
+
 }
