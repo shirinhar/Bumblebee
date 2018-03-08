@@ -1,9 +1,11 @@
 #include <stdio.h>
 
-int MAXSIZE = 250;       
+int MAXSIZE = 250;
+int stack[250];    
 int stack_left[250]; 
 int stack_right[250];    
 int top_left = -1;
+int top = -1;
 int top_right = -1;            
 
 int isempty() {
@@ -59,5 +61,27 @@ int push(int data_left,int data_right) {
       stack_left[top_left] = data_left;
    } else {
       printf("Could not insert data, Stack is full.\n");
+   }
+}
+
+int push_single(int data) {
+
+   if(!isfull()) {
+      top = top + 1;   
+      stack[top] = data;
+   } else {
+      printf("Could not insert data, Stack is full.\n");
+   }
+}
+
+int pop_single() {
+   int data;
+   
+   if(!isempty()) {
+      data = stack[top];
+      top = top - 1;   
+      return data;
+   } else {
+      printf("Could not retrieve data, Stack is empty.\n");
    }
 }
