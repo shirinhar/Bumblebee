@@ -8,7 +8,9 @@
 
 
 int main() {
-
+    simulator_startNewSmokeTrail();
+    //hardcoded the first square
+	drive_goto(150,150);
     while(1){
         run();
     }
