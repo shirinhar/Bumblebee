@@ -1,9 +1,10 @@
 #include <stdio.h>
 
-int MAXSIZE = 250;
-int stack[250];    
-int stack_left[250]; 
-int stack_right[250];    
+
+int MAXSIZE = 100;
+int stack[100];    
+int stack_left[100]; 
+int stack_right[100];
 int top_left = -1;
 int top = -1;
 int top_right = -1;            
