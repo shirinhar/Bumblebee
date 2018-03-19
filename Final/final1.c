@@ -1,4 +1,4 @@
-#include <math.h>
+#include <math.h> 
 #include <stdio.h>
 #include <stdlib.h>
 #include "simpletools.h"
@@ -8,11 +8,13 @@
 
 
 int main() {
+
     simulator_startNewSmokeTrail();
-    //hardcoded the first square
-	drive_goto(150,150);
-    while(1){
-        run();
+    start();
+    int stop = 0;
+    while(stop == 0){
+        stop = run();
     }
+    back();
     return 0;
 }
