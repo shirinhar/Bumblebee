@@ -204,7 +204,6 @@ void finish_off(int prev_length){
 
     // the end
     pause(15);
-    drive_speed(100,100);
     for (int i = 0; i < wheel_index + 1; ++i)
     {
         printf("r: %d - l: %d\n",right_wheel[i],left_wheel[i]);
