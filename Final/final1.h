@@ -35,7 +35,7 @@ int distance_from = 19,ticks = 120;
 int visited_index =0, visited_index_2=0;
 int posX=0, posY=1;
 int n = 60;  // number of maximum edges
-int stop = 0,prev[40];
+int stop = 0;
 
 // 1 is y 0 is x
 int what_am_i_on = 1, back_it_up;
@@ -43,7 +43,6 @@ int what_am_i_on = 1, back_it_up;
 // then number inside is the same as n 
 // but were not allowed to put it in
 struct edge edges[60];
-
 int all_nodes[] = {0,1,2,3,4,11,12,13,14,21,22,23,24,31,32,33,34};
 
 
@@ -76,7 +75,7 @@ void calculate_weight(){
 int calculate_optimum_route(){
     int all_node_size = sizeof(all_nodes)/sizeof(int);
 
-    int cost[40][40], start = 0;
+    int cost[40][40], start = 0,prev[40];
     int visited_dijk[40], distance_dijk[40];
 
     // make a cost matrix
@@ -170,7 +169,7 @@ void finish_off(int prev_length){
         {
             if (from == edges[k].first && to == edges[k].second)
             {
-
+                // check if they're not the same chon oon tori shayad drive_goto kamtar bashe
                 if (edges[k].distance_from_last_l[1] != 0)
                 {
                     for (int j = 0; j < 4; ++j)
@@ -203,12 +202,17 @@ void finish_off(int prev_length){
         }
     }
 
+    // the end
+    pause(15);
+    drive_speed(100,100);
     for (int i = 0; i < wheel_index + 1; ++i)
     {
         printf("r: %d - l: %d\n",right_wheel[i],left_wheel[i]);
         drive_goto(right_wheel[i],left_wheel[i]);
     }
 }
+
+
 
 void back(){
     for (int j = 0; j < edge_index; ++j)
