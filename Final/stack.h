@@ -29,6 +29,7 @@ int peek() {
    printf("left peak: %d, right peak: %d\n", stack_left[top_left],stack_right[top_right]); ;
 }
 
+// dual stack
 int pop_left() {
    int data;
 	
@@ -65,6 +66,7 @@ int push(int data_left,int data_right) {
    }
 }
 
+// single stack
 int push_single(int data) {
 
    if(!isfull()) {
