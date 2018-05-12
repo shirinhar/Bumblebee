@@ -40,11 +40,8 @@ int stop = 0;
 // 1 is y 0 is x
 int what_am_i_on = 1, back_it_up;
 
-// then number inside is the same as n 
-// but were not allowed to put it in
-struct edge edges[60];
+struct edge edges[60];  // edges
 int all_nodes[] = {0,1,2,3,4,11,12,13,14,21,22,23,24,31,32,33,34};
-
 
 
 void clear_array(){
@@ -56,10 +53,11 @@ void clear_array(){
 }
 
 void start(){
-    drive_goto(30,30);
+    drive_goto(30,30);  // get to the center of starting node
     clear_array();
 }
 
+// calculate weight of each node
 void calculate_weight(){   
     for (int j = 0; j < edge_index; ++j)
     {
@@ -73,6 +71,7 @@ void calculate_weight(){
 }
 
 int calculate_optimum_route(){
+    // calculate using dijkstra
     int all_node_size = sizeof(all_nodes)/sizeof(int);
 
     int cost[40][40], start = 0,prev[40];
@@ -90,8 +89,6 @@ int calculate_optimum_route(){
         }
         visited_dijk[i] = 0;    // don't know why we do it but was in the website
     }
-    printf("cost matrix made\n");
-
 
     for (int i = 0; i < edge_index; ++i)
     {
@@ -110,7 +107,6 @@ int calculate_optimum_route(){
     visited_dijk[start] = 1;
     distance_dijk[start] = 0;
 
-    printf("start of while loop\n");
     while(visited_dijk[34]==0)
     {
         int MIN_DISTANCE = INF;
@@ -137,34 +133,29 @@ int calculate_optimum_route(){
     }
 
     start = 34;
-    printf("im out bitch\n");  
-    int lenght= 0;
-    // the printer
-    int in = 0;
+    int length= 0;
     do
     {
-        // understand this...
-        new_prev[lenght] = start;
-        printf("**%d\n", start);
+        new_prev[length] = start;
         start = prev[start];
-        lenght++;
+        length++;
         
     }while(start != -1);
 
-    return lenght;
+    return length;
 }
 
 void finish_off(int prev_length){
     int left_wheel[30], right_wheel[30], wheel_index = 0;
     left_wheel[0] = 0;
     right_wheel[0] = 0;
-    printf("enter finish_off\n");
+
+    // put fasted route into array
     for (int i = prev_length-1; i > -1; i = i -1)
     {
-        printf("hi\n");
+
         int from = new_prev[i];
         int to = new_prev[i-1];
-        print("%d-%d",from,to);
         for (int k = 0; k < edge_index; ++k)
         {
             if (from == edges[k].first && to == edges[k].second)
@@ -179,7 +170,6 @@ void finish_off(int prev_length){
                         right_wheel[wheel_index] = edges[k].distance_from_last_r[j];
                     }
                 }else{
-                    printf("here\n");
                     left_wheel[wheel_index] += edges[k].distance_from_last_l[0];
                     right_wheel[wheel_index] += edges[k].distance_from_last_r[0];
                 }
@@ -194,7 +184,6 @@ void finish_off(int prev_length){
                         right_wheel[wheel_index] = edges[k].distance_from_last_r[j];
                     }
                 }else{
-                    printf("here_2\n");
                     left_wheel[wheel_index] += edges[k].distance_from_last_l[0];
                     right_wheel[wheel_index] += edges[k].distance_from_last_r[0];
                 }
@@ -206,13 +195,12 @@ void finish_off(int prev_length){
     pause(15);
     for (int i = 0; i < wheel_index + 1; ++i)
     {
-        printf("r: %d - l: %d\n",right_wheel[i],left_wheel[i]);
         drive_goto(right_wheel[i],left_wheel[i]);
     }
 }
 
 
-
+// Phase 2
 void back(){
     for (int j = 0; j < edge_index; ++j)
     {
@@ -222,21 +210,15 @@ void back(){
             edges[j].first = 0;
         }
 
-        // print the sit I get
-        print("%d",edges[j].first);
-        printf(" - ");
-        print("%d",edges[j].second);
-        printf("\n");
     }
 
     calculate_weight();
     int prev_length = calculate_optimum_route();
-    printf("length: %d",prev_length);
-    finish_off(prev_length);
+    finish_off(prev_length);    // going the final route
 
 }
 
-
+// see if node has been visited once
 int is_visited_1(int valX,int valY){
     for (int i=0; i < visited_index; i++) {
         if (visitedY[i] == valY && visitedX[i] == valX)
@@ -245,6 +227,7 @@ int is_visited_1(int valX,int valY){
     return 0;
 }
 
+// see if node has been visited twice
 int is_visited_2(int valX,int valY){
     for (int i=0; i < visited_index; i++) {
         if (visitedY_2[i] == valY && visitedX_2[i] == valX)
@@ -269,6 +252,7 @@ void change_direction(){
     } 
 }
 
+// check what axis you are on
 void im_on(){
     if (what_am_i_on == 1){
         what_am_i_on = 0;
@@ -278,6 +262,7 @@ void im_on(){
     }
 }
 
+// find distance between two nodes
 void save_distance_between(int tick_r, int tick_l){
     distance_between_r[distance_between_index]=tick_r;
     distance_between_l[distance_between_index]=tick_l;
@@ -332,6 +317,7 @@ void save_coordinates_again(){
     visited_index_2++;
 }
 
+// go forward on the x axis
 void go_forth_x(){
     drive_goto(ticks,ticks);
     save_distance_between(ticks,ticks);
@@ -346,6 +332,7 @@ void go_forth_x(){
     push(ticks,ticks);
 }
 
+// go forward on the y axis
 void go_forth_y(){
     drive_goto(ticks,ticks);
     save_distance_between(ticks,ticks);
@@ -383,7 +370,8 @@ double find_right_ir(){
     return right_ir;
 }
 
-void go_back_bitch(){
+// go to the last point fo decision
+void go_back(){
     drive_goto(51,-52);
     int pop_l = pop_left();
     int pop_r = pop_right();
@@ -408,7 +396,7 @@ void go_back_bitch(){
     back_it_up = 1;
 }
 
-void go_fucking_bitch(){
+void go_forward(){
     if (what_am_i_on == 1){
         go_forth_y();
     }
@@ -417,24 +405,8 @@ void go_fucking_bitch(){
     }
 }
 
-void printer(){
-    printf("shoot me\n");
-    int help = x;
-    int hi = y;
-    printf("co:%d, %d pos: %d, %d ^^ ",help,hi,posX,posY);
-    print("%d",edges[edge_index-1].first);
-    printf(" - ");
-    print("%d",edges[edge_index-1].second);
-    printf("\n");
-    for (int i = 0; i < 5; ++i)
-    {
-        print("%d - ",edges[edge_index-1].distance_from_last_l[i]);
-    }
-    printf("\n");
-}
-
 void make_graph(){
-    // just putting in the things you've been on
+
     edges[edge_index].first = (last_x*10) + last_y;
     edges[edge_index].second = (x*10) + y;
     for (int i = 0; i < 5; ++i)
@@ -453,79 +425,81 @@ int run(){
     double left_ir = find_left_ir();
     double right_ir = find_right_ir();
 
-
+    // if wall infront
     if ( ping < 25 ){
 
         if(left_ir > distance_from && right_ir > distance_from){
+            // visited twice
             if(is_visited_2(x,y)==1){
-                go_back_bitch();
+                go_back();
             }
+            // visited once
             else if(is_visited_1(x,y)==1 && back_it_up != 0) {
                 save_coordinates_again();
                 if (left_ir > distance_from && right_ir <= distance_from){
                     turn_right();
-                    go_fucking_bitch();
+                    go_forward();
                 }
                 else{
                     turn_left();
-                    go_fucking_bitch();
+                    go_forward();
                 }
             }
             else if(is_visited_1(x,y)==1){
                 save_coordinates_again();
-                go_back_bitch();
+                go_back();
             }
             else{
                 save_coordinates();
                 push(-100,-100);
                 turn_right();
-                go_fucking_bitch();
+                go_forward();
             }
         }
         else if (left_ir > distance_from && right_ir <= distance_from){
             turn_right();
-            go_fucking_bitch();
+            go_forward();
         }
         else if (right_ir > distance_from && left_ir <= distance_from){
             turn_left();
-            go_fucking_bitch();
+            go_forward();
         }
         //dead end
         else{
-            go_back_bitch();
+            go_back();
         }
     }
     else if(left_ir > distance_from || right_ir > distance_from ){
         if(is_visited_2(x,y)==1){
-            go_back_bitch();
+            go_back();
         }
         else if(is_visited_1(x,y)==1 && back_it_up != 0){
             save_coordinates_again();
             if (left_ir > distance_from && right_ir <= distance_from){
                 turn_right();
-                go_fucking_bitch();
+                go_forward();
             }
             else{
                 turn_left();
-                go_fucking_bitch();
+                go_forward();
             }
 
             // choose other route
         }
         else if(is_visited_1(x,y)==1){
             save_coordinates_again();
-            go_back_bitch();
+            go_back();
         }
         else{
             save_coordinates();
             push(-100,-100);
-            go_fucking_bitch();
+            go_forward();
         }
             
     }
     //going straight
     else{
-        go_fucking_bitch();
+        go_forward();
     }
 
     if (back_it_up == 1){
@@ -534,8 +508,7 @@ int run(){
         back_it_up = 0;
     }
 
-    make_graph();
-    printer();
+    make_graph();   // make the node
 
     return stop;
 }
