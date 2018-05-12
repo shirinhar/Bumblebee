@@ -9,9 +9,9 @@
 
 int main() {
 
-	simulator_startNewSmokeTrail();
-	start();
-	int stop = 0;
+    simulator_startNewSmokeTrail();
+    start();
+    int stop = 0;
     while(stop == 0){
         stop = run();
     }
